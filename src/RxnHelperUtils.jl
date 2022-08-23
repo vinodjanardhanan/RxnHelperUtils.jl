@@ -47,7 +47,7 @@ function get_path(path::String, file_name::String)
     if Sys.isapple() || Sys.islinux()
         dirs = split(path,"/")        
     elseif Sys.iswindows()
-        dirs = split(path."\\")
+        dirs = split(path,"\\")
     end
     push!(dirs,file_name)
     joinpath(dirs)
