@@ -68,7 +68,7 @@ function output_file(input_file::String, output_file::String)
     if Sys.isapple() || Sys.islinux()
         dirs = split(input_file,"/")        
     elseif Sys.iswindows()
-        dirs = split(input_file."\\")
+        dirs = split(input_file,"\\")
     end
     pop!(dirs) # removes the input file name 
     push!(dirs,output_file) # adds the output file name
