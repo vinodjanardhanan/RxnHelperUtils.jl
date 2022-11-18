@@ -182,10 +182,10 @@ The function returns string of file path
 """
 function get_text_from_xml(xmlroot::XMLElement,tag::String)
     tag_node = get_elements_by_tagname(xmlroot,tag)
-    if is_elementnode(tag_node[1])
+    if !isempty(tag_node) 
         return String(strip(content(tag_node[1])))
     else
-        throw(error("Unable to find the node $tag in the xmlroot\n"))
+        nothing
     end    
 end
 
