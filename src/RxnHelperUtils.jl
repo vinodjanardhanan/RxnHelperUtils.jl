@@ -100,9 +100,8 @@ Function to convert massfractions to mole fractions
 -   mol_wt::Array{Float64,1} : Vector of molecular weights
 -   molefracs::Array{Float64,1} : Vector of molefractions 
 """
-function massfrac_to_molefrac!(molefracs::T, massfracs::T, mol_wt::T) where T <: Array{Float64,1}
-    moles = massfracs ./ mol_wt        
-    molefracs .= moles/sum(moles)
+function massfrac_to_molefrac!(molefracs::T, massfracs::T, mol_wt::T) where T <: Array{Float64,1}    
+    molefracs .= (massfracs ./ mol_wt)/sum(massfracs ./ mol_wt)
 end
 
 
@@ -113,9 +112,8 @@ massfrac_to_molefrac(massfracs,mol_wt,molefracs)
 -   massfracs::Array{Float64,1} : Vector of massfractions
 -   mol_wt::Array{Float64,1} : Vector of molecular weights
 """
-function massfrac_to_molefrac(massfracs::T,mol_wt::T) where T <: Array{Float64,1}
-    moles = massfracs ./ mol_wt        
-    return moles/sum(moles)
+function massfrac_to_molefrac(massfracs::T,mol_wt::T) where T <: Array{Float64,1}    
+    return (massfracs ./ mol_wt)/sum(massfracs ./ mol_wt)
 end
 
 
@@ -126,9 +124,8 @@ Function to convert molefractions to massfractions
 -   molefracs::Array{Float64,1} : Vector of molefractions
 -   mol_wt::Array{Float64,1} : Vector of molecular weights
 """
-function molefrac_to_massfrac!(massfracs::T, molefracs::T,mol_wt::T) where T <: Array{Float64,1}    
-    wt = molefracs .* mol_wt    
-    massfracs .= wt/sum(wt)    
+function molefrac_to_massfrac!(massfracs::T, molefracs::T,mol_wt::T) where T <: Array{Float64,1}        
+    massfracs .=  (molefracs .* mol_wt)/sum(molefracs .* mol_wt)    
 end
 
 
