@@ -1,7 +1,7 @@
 name = "RxnHelperUtils"
 uuid = "58b8660e-aa37-4837-a287-8893ee0015f8"
 authors = ["Vinod Janardhanan"]
-version = "0.1.5"
+version = "0.1.6"
 
 [deps]
 LightXML = "9c8b4983-aa76-5018-a973-4c85ecc9e179"

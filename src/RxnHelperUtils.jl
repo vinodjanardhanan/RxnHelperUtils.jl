@@ -264,7 +264,31 @@ function write_to_file(file_stream, args...)
     @printf(file_stream,"\n")
 end
 
+"""
+Function for creating the headers in the output CSV file 
+# Usage:
+create_header(file_stream, args...)    
+-   file_stream: output file stram 
+-   args... : variable arguments, which are headers 
+"""
+function create_csv_header(file_stream, args...)
+    write_csv_file(file_stream, args...)
+end
 
+"""
+Function for writing data in CSV format
+# Usage:
+write_to_file(file_stream, args...)    
+-   file_stream: output file stram 
+-   args... : variable arguments, whichis the data
+"""
+
+function write_csv_file(file_stream, args...)
+    for i in eachindex(args)
+        @printf(file_stream, "%s", join(args[i], ","))
+    end
+    @printf(file_stream, "\n")
+end
 
 
 
