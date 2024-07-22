@@ -8,7 +8,7 @@ include("Constants.jl")
 export convert2si, get_index, parse_composition,
     massfrac_to_molefrac!, massfrac_to_molefrac, molefrac_to_massfrac!, average_molwt, density,
     get_collection_from_xml, get_value_from_xml, get_text_from_xml, get_molefraction_from_xml,
-    create_header, write_to_file, get_path, output_file 
+    create_header, write_to_file, get_path, output_file, create_csv_header, write_csv_file
 
 cf = Dict("M"=>1,"CM"=>0.01,"KJ/MOLE"=>1000, "KJ/MOL"=>1000, "CAL/MOLE"=>4.184, "CAL/MOL"=>4.184, "KCAL/MOLE"=>4184, 
     "JOULES/MOLE"=>1, "EVOLTS"=>96491.5)
