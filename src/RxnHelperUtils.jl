@@ -284,9 +284,11 @@ write_to_file(file_stream, args...)
 """
 
 function write_csv_file(file_stream, args...)
+    data = Array{String,1}()
     for i in eachindex(args)
-        @printf(file_stream, "%s", join(args[i], ","))
-    end
+        append!(data, args[i])
+    end    
+    @printf(file_stream, "%s", join(data, ","))    
     @printf(file_stream, "\n")
 end
 
