@@ -8,7 +8,7 @@ include("Constants.jl")
 export convert2si, get_index, parse_composition,
     massfrac_to_molefrac!, massfrac_to_molefrac, molefrac_to_massfrac!, average_molwt, density,
     get_collection_from_xml, get_value_from_xml, get_text_from_xml, get_molefraction_from_xml,
-    create_header, write_to_file, get_path, output_file, create_csv_header, write_csv_file
+    create_header, write_to_file, get_path, output_file, create_csv_header, write_csv
 
 cf = Dict("M"=>1,"CM"=>0.01,"KJ/MOLE"=>1000, "KJ/MOL"=>1000, "CAL/MOLE"=>4.184, "CAL/MOL"=>4.184, "KCAL/MOLE"=>4184, 
     "JOULES/MOLE"=>1, "EVOLTS"=>96491.5)
@@ -251,10 +251,9 @@ end
 Function for writing data in the output file 
 # Usage:
 write_to_file(file_stream, args...)    
--   file_stream: output file stram 
--   args... : variable arguments, whichis the data
+-   file_stream: output file stream
+-   args... : variable arguments, which is the floating point data
 """
-
 function write_to_file(file_stream, args...)
     for i in eachindex(args)
         for k in args[i]
@@ -271,10 +270,10 @@ create_header(file_stream, args...)
 -   file_stream: output file stram 
 -   args... : variable arguments, which are headers 
 """
-function create_csv_header(file_stream, args...)
+#= function create_csv_header(file_stream, args...)
     write_csv_file(file_stream, args...)
 end
-
+ =#
 """
 Function for writing data in CSV format
 # Usage:
@@ -283,15 +282,77 @@ write_to_file(file_stream, args...)
 -   args... : variable arguments, whichis the data
 """
 
-function write_csv_file(file_stream, args...)
+#= function write_csv_file(file_stream, args...)
     data = Array{String,1}()
     for i in eachindex(args)
-        append!(data, args[i])
+        push!(data, string(args[i]))
     end    
     @printf(file_stream, "%s", join(data, ","))    
     @printf(file_stream, "\n")
 end
+ =#
 
+"""
+Function for writing data in the csv file format
+# Usage:
+write_csv(file_stream, data)    
+-   file_stream: output file stream
+-   data : Vector of strings
+"""
+function write_csv(file_stream, data::Array{String,1})
+    @printf(file_stream, "%s", join(data, ","))
+    @printf(file_stream, "\n")
+end
 
+"""
+Function for writing data in the csv file format
+# Usage:
+write_csv(file_stream, data)    
+-   file_stream: output file stream
+-   data : Vector of Float64
+"""
+function write_csv(file_stream, data::Vector{Float64})
+    sdata = string.(data)
+    write_csv(file_stream, sdata)
+    
+end
+
+"""
+Function for writing data in the csv file format
+# Usage:
+write_csv(file_stream, data)    
+-   file_stream: output file stream
+-   data : Vector of Float64, String, or Int64
+"""
+function write_csv(file_stream, data::Array{T,1}) where T <: Union{Float64, String, Int64}
+    sdata = string.(data)
+    write_csv(file_stream, sdata)
+end
+
+"""
+Function for writing data in the csv file format
+# Usage:
+write_csv(file_stream, data)    
+-   file_stream: output file stream
+-   args... : any mix of arguments
+"""
+function write_csv(file_stream, args...)
+    if length(args) == 1
+        write_csv(file_stream, string.(args[1]))
+    else
+        data = Array{String,1}()
+        for i in eachindex(args)
+            if typeof(args[i]) == String || typeof(args[i]) == Float64 || typeof(args[i]) == Int64
+                push!(data, string(args[i]))
+            else
+                for k in args[i]
+                    push!(data, string(k))
+                end
+            end
+        end
+        display(data)
+        write_csv(file_stream, data)
+    end
+end
 
 end
