@@ -314,7 +314,6 @@ write_csv(file_stream, data)
 function write_csv(file_stream, data::Vector{Float64})
     sdata = string.(data)
     write_csv(file_stream, sdata)
-    
 end
 
 """
@@ -350,7 +349,6 @@ function write_csv(file_stream, args...)
                 end
             end
         end
-        display(data)
         write_csv(file_stream, data)
     end
 end
